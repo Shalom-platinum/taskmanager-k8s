@@ -45,7 +45,7 @@ backend:
   image:
     repository: taskmanager-backend
     tag: "latest"
-    pullPolicy: Never  # Change to Always for production with registry
+    pullPolicy: Always  # Change to Always for production with registry
   
   service:
     type: ClusterIP
@@ -101,7 +101,7 @@ frontend:
   image:
     repository: taskmanager-frontend
     tag: "latest"
-    pullPolicy: Never  # Change to Always for production with registry
+    pullPolicy: Always  # Change to Always for production with registry
   
   service:
     type: LoadBalancer

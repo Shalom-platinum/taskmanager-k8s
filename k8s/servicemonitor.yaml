@@ -1,0 +1,33 @@
+# ServiceMonitor for Prometheus (if you install Prometheus Operator)
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: backend-monitor
+  labels:
+    app: backend
+spec:
+  selector:
+    matchLabels:
+      app: backend
+  endpoints:
+  - port: http
+    interval: 30s
+    path: /metrics  # Your app needs to expose metrics endpoint
+---
+# For now, let's add basic monitoring via annotations
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service-monitored
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "5000"
+    prometheus.io/path: "/health"
+spec:
+  selector:
+    app: backend
+  ports:
+  - name: http
+    port: 5000
+    targetPort: 5000
+  type: ClusterIP

@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongodb-config
+data:
+  # MongoDB configuration
+  MONGO_INITDB_DATABASE: "taskmanager"
+  MONGO_PORT: "27017"
+  # Storage configuration
+  STORAGE_SIZE: "1Gi"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mongodb-secrets
+type: Opaque
+stringData:
+  # MongoDB authentication credentials
+  # In production, use strong passwords!
+  MONGO_INITDB_ROOT_USERNAME: "admin"
+  MONGO_INITDB_ROOT_PASSWORD: "SecurePassword123!"
+  # Application user credentials
+  MONGO_APP_USERNAME: "taskmanager_user"
+  MONGO_APP_PASSWORD: "AppPassword456!"
